@@ -8,6 +8,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -25,6 +27,9 @@ public class CambioDeDivisa extends Application {
 	private ComboBox<Divisa> DivisaSalida;
 	
 	private Button cambiarButton;
+	
+	private Alert alerta;
+
 	
 
 	@Override
@@ -72,16 +77,24 @@ public class CambioDeDivisa extends Application {
 	}
 
 	private void onCambiarButtonAction(ActionEvent e) {
-
-		Divisa origen = DivisaEntrada.getSelectionModel().selectedItemProperty().get();
-		Divisa destino = DivisaSalida.getSelectionModel().selectedItemProperty().get();
+		try {
+			Divisa origen = DivisaEntrada.getSelectionModel().selectedItemProperty().get();
+			Divisa destino = DivisaSalida.getSelectionModel().selectedItemProperty().get();
+			
+			salidaText.textProperty().setValue(
+					String.valueOf(
+							destino.fromEuro(
+									origen.toEuro(
+											Double.parseDouble(
+													dineroText.getText())))));
+		} catch (Exception e2) {
+			alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Cambio Divisa");
+			alerta.setHeaderText("Error");
+			alerta.setContentText("El número introducido no es valido.");
+			alerta.showAndWait();			
+		}
 		
-		salidaText.textProperty().setValue(
-				String.valueOf(
-						destino.fromEuro(
-								origen.toEuro(
-										Double.parseDouble(
-												dineroText.getText())))));
 
 	}
 
