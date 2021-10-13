@@ -35,6 +35,7 @@ public class CambioDeDivisa extends Application {
 		
 		salidaText = new TextField();
 		salidaText.setMaxWidth(70);
+		salidaText.setEditable(false);
 		
 		Divisa euro = new Divisa("Euro", 1.0);
 		Divisa libra = new Divisa("Libra", 0.8873);
