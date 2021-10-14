@@ -1,6 +1,6 @@
 package dad.cambioDeDivisa;
 
-import comboBox.Alumno;
+
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
